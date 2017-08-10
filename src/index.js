@@ -10,17 +10,25 @@ const asyncLoader = (dispatch, state, loaders) => {
 
       if ((get instanceof Function && !get(state)) || get) {
 
-        if (load instanceof Function) {
+        if (load instanceof Promise) {
+
+          promises.push(load);
+
+        } else if (load instanceof Function) {
 
           promises.push(dispatch(load()));
 
         } else {
 
-          promises.push(load);
+          promises.push(dispatch(load));
 
         }
 
       }
+
+    } else if (loader instanceof Promise) {
+
+      promises.push(loader);
 
     } else if (loader instanceof Function) {
 
@@ -28,7 +36,7 @@ const asyncLoader = (dispatch, state, loaders) => {
 
     } else {
 
-      promises.push(loader);
+      promises.push(dispatch(loader));
 
     }
 
