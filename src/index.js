@@ -8,7 +8,7 @@ const asyncLoader = (dispatch, state, loaders) => {
 
       const [get, load] = loader;
 
-      if ((get instanceof Function && !get(state)) || get) {
+      if ((get instanceof Function && !get(state)) || !get) {
 
         if (load instanceof Promise) {
 
