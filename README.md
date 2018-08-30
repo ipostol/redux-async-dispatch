@@ -11,7 +11,10 @@ const mapAsyncActions = [{
   promise: ({ store: { dispatch, getState } }) =>
     asyncLoader(dispatch, getState(), [
       [getSomeState, loadSomething], // first array parameter function with @return boolean or boolean
-      loadOther(), // load without check state by loaded data
+      [false, loadSomething5], // if false will load
+      dispatch(loadSomething2()),
+      loadSomething3, 
+      loadSomething4, // load without check state by loaded data
     ]),
 }];
 
